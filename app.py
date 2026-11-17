@@ -3,6 +3,7 @@ import streamlit as st
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 from langchain_core.output_parsers import StrOutputParser
+from database.banco import listar_alimentos
 
 # 1. Configuração da página da interface
 st.set_page_config(
@@ -212,6 +213,36 @@ st.sidebar.markdown("### 🧪 Testes Rápidos (Avaliação)")
 st.sidebar.caption("Clique em um cenário abaixo para testar os requisitos da atividade:")
 
 prompt_rapido = None
+
+# Consultar alimentos cadastrados na geladeira
+if st.sidebar.button(
+    "🥬 Usar alimentos da minha geladeira",
+    use_container_width=True
+):
+
+    alimentos = listar_alimentos()
+
+    if alimentos:
+
+        lista_alimentos = "\n".join(
+            [
+                f"- {a['nome']}: {a['quantidade']} {a['unidade']}"
+                for a in alimentos
+            ]
+        )
+
+        prompt_rapido = (
+            "Estes são os alimentos cadastrados na minha geladeira:\n\n"
+            f"{lista_alimentos}\n\n"
+            "Sugira receitas que eu possa preparar utilizando "
+            "prioritariamente esses alimentos. "
+            "Informe também o que está faltando, se houver."
+        )
+
+    else:
+        st.sidebar.warning(
+            "Sua geladeira ainda não possui alimentos cadastrados."
+        )
 
 if st.sidebar.button("🥦 1. Sobras + Orçamento (R$ 15)", use_container_width=True):
     prompt_rapido = (

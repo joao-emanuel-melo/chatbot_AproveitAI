@@ -1,7 +1,8 @@
+
 [theme]
 base = "light"
-primaryColor = "#16A34A"              # Verde hortelã fechado e legível
-backgroundColor = "#F7FAF8"           # Branco gelo com suave nuance vegetal
-secondaryBackgroundColor = "#EAF4EE"  # Verde pastel suave para barra lateral e caixas
-textColor = "#143022"                 # Verde floresta escuro para leitura confortável
+primaryColor = "#16A34A"
+backgroundColor = "#F7FAF8"
+secondaryBackgroundColor = "#EAF4EE"
+textColor = "#143022"
 font = "sans serif"
